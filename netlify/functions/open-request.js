@@ -22,11 +22,14 @@ exports.handler = async (event) => {
       },
     });
 
-    return {
-      statusCode: 200,
-      headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify({ success: true }),
-    };
+return {
+  statusCode: 200,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  },
+  body: JSON.stringify({ success: true })
+};
   } catch (err) {
     console.error("오류:", err);
     return {
