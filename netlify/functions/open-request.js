@@ -8,7 +8,7 @@ exports.handler = async (event) => {
     const auth = new google.auth.JWT(
       process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       null,
-      process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
       ["https://www.googleapis.com/auth/spreadsheets"]
     );
 
@@ -22,20 +22,23 @@ exports.handler = async (event) => {
       },
     });
 
-return {
-  statusCode: 200,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type'
-  },
-  body: JSON.stringify({ success: true })
-};
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: JSON.stringify({ success: true })
+    };
   } catch (err) {
     console.error("오류:", err);
     return {
       statusCode: 500,
-      headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify({ success: false, error: err.message }),
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: JSON.stringify({ success: false, error: err.message })
     };
   }
 };
