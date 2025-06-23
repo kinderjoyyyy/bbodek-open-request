@@ -1,6 +1,19 @@
 const { google } = require("googleapis");
 
 exports.handler = async (event) => {
+  // ✅ OPTIONS 요청 처리 (Preflight 요청 대응)
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+      body: "OK",
+    };
+  }
+
   try {
     const { 기관명, 주소 } = JSON.parse(event.body);
     const now = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
@@ -25,20 +38,20 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type'
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
-      body: JSON.stringify({ success: true })
+      body: JSON.stringify({ success: true }),
     };
   } catch (err) {
     console.error("오류:", err);
     return {
       statusCode: 500,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type'
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
-      body: JSON.stringify({ success: false, error: err.message })
+      body: JSON.stringify({ success: false, error: err.message }),
     };
   }
 };
