@@ -1,3 +1,8 @@
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
 export const handler = async (event) => {
   try {
     const { 기관명, 주소 } = JSON.parse(event.body);
